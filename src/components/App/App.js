@@ -1,13 +1,28 @@
 import React from "react";
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
-import '../../components/App/App.css';
+import { Routes, Route } from "react-router-dom";
+import Main from "../Main/Main";
+import Movies from "../Movies/Movies";
+import SavedMovies from "../SavedMovies/SavedMovies";
+import Login from "../Login/Login";
+import Register from "../Register/Register";
+import Profile from "../Profile/Profile";
+import ErrorPage from "../ErrorPage/ErrorPage";
+import "../../components/App/App.css";
 
 function App() {
   return (
-    <div className="page">
-      <Header />
-      <Footer />
+    <div className="app">
+      <div className="app__container">
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/saved-movies" element={<SavedMovies />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/signin" element={<Login />} />
+          <Route path="/signup" element={<Register />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </div>
     </div>
   );
 }

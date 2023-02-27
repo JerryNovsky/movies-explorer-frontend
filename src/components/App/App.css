@@ -1,0 +1,56 @@
+html {
+    scroll-behavior: smooth;
+}
+
+.app {
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+}
+
+.app__container {
+    display: flex;
+    min-width: 320px;
+    min-height: 100vh;
+    max-width: 1280px;
+    flex-direction: column;
+    margin: auto;
+}
+
+.button {
+    padding: 0;
+    border: none;
+    cursor: pointer;
+}
+
+.link {
+    text-decoration: none;
+    transition: opacity .6s;
+}
+
+.link:hover {
+    opacity: .65;
+}
+
+
+.heading {
+    margin: 0;
+    padding-bottom: 23px;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 27px; 
+    border-bottom: 1px solid #000;
+}
+
+@media screen and (max-width: 480px) {
+    .heading {
+        padding-bottom: 28px;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 22px;
+    }
+}

@@ -1,6 +1,11 @@
-.header__container {
+.header {
+    margin: 0 auto;
+    width: 100%;
     display: flex;
+    padding-top: 18px;
+    padding-bottom: 18px;
     justify-content: space-between;
+    align-items: center;
 }
 
 .header__logo {
@@ -9,7 +14,15 @@
     background-image: url(../../images/logo.svg);
     background-size: contain;
     background-repeat: no-repeat;
-    padding-bottom: 41px;
+    transition-duration: .6s;
+}
+
+.header__logo:hover {
+    filter: brightness(90%);
+}
+
+.header__logo_place_main {
+    margin-left: 70px;
 }
 
 .header__selector {
@@ -22,12 +35,122 @@
     border-radius: 40px;
     border: none;
     box-shadow: 0 4px 4px rgba(0, 0, 0, .25);
+    background-color: #ffffff;
 }
 
-.button {
-    padding: 0;
-    font: inherit;
-    color: inherit;
-    background-color: transparent;
+.header_place_main {
+    background-color: #073042;
+    max-width: 1280px;
+    padding: 18px 0;
+    
+}
+
+.header_place_movies {
+    max-width: 1140px;
+}
+
+.header_place_profile {
+    max-width: 1140px;
+}
+
+.header__link {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: #ffffff;
+}
+
+.header__link-container {
+   display: flex;
+   align-items: center;
+}
+
+.header__link-container_place_main {
+    margin-right: 70px;
+}
+
+.header__signin-button {
+    width: 76px;
+    height: 32px;
+    margin-left: 30px;
+    background-color:#2BE080;
+    border-radius: 3px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 32px;
+    text-decoration: none;
+    color: #000;
+    transition-duration: .6s;
+}
+
+.header__signin-button:hover {
+    filter: brightness(90%);
+}
+
+.header__nav-button {
+    display: none;
+    width: 44px;
+    height: 38px;
+    border: none;
+    background: url("../../images/nav_button.svg") no-repeat center;
     cursor: pointer;
+    transition: opacity 0.5s;
+}
+
+
+@media screen and (max-width: 1024px) {
+    .header__logo {
+        margin-left: 30px;
+    }
+
+    .header__link-container {
+        margin-right: 30px;
+    }
+
+    .header__nav-button {
+        display: block;
+        margin-right: 30px;
+    }
+}
+  
+  @media screen and (max-width: 480px) {
+    
+    .header {
+        padding-bottom: 18px;
+    }
+    
+    .header__logo_place_main {
+        margin-left: 14px;
+    }
+
+    .header__logo_place_profile {
+        margin-left: 14px;
+    }
+
+    .header__link-container_place_main {
+        margin-right: 14px;
+    }
+
+    .header__link {
+        font-size: 10px;
+    }
+
+    .header__signin-button {
+        width: 54px;
+        height: 26px;
+        margin-left: 14px;
+        font-size: 10px;
+        line-height: 24px;
+    }
+
+    .header__logo_place_movies {
+        margin-left: 14px;
+    }
+
+    .header__nav-button {
+        margin-right: 14px;
+        width: 40px;
+        height: 43px;
+    }
 }

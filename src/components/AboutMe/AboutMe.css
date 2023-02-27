@@ -1,0 +1,126 @@
+.aboutme__section {
+    padding: 66px 0 100px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.aboutme__info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between
+}
+
+.aboutme__name {
+    margin: 0;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 58px;
+}
+
+.aboutme__about {
+    margin: 0;
+    padding: 18px 0 26px 0;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+}
+
+.aboutme__bio {
+    max-width: 600px;
+    margin: 0;
+    padding-bottom: 99px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.aboutme__photo {
+    width: 270px;
+    height: 327px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.aboutme__github-link {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    transition: opacity .6s;
+    color:#000;
+}
+
+.aboutme__github-link:hover {
+    opacity: .65;
+}
+
+@media screen and (max-width: 1024px) {  
+    .aboutme__name {
+        font-size: 40px;
+        line-height: 40px;
+        letter-spacing: -0.04em;
+    }
+
+    .aboutme__about {
+        margin: 0;
+        padding: 18px 0 26px 0;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .aboutme__bio {
+        font-size: 12px;
+        line-height: 18px;
+        max-width: 364px;
+    }
+
+    .aboutme__photo {
+        width: 255px;
+        height: 307px;
+    }
+
+    .aboutme__section {
+        padding-bottom: 0;
+    }
+}
+
+@media screen and (max-width: 560px) {
+
+    .aboutme__section {
+        padding: 60px 0 0 0;
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .aboutme__name {
+        font-size: 30px;
+        line-height: 36px;
+        letter-spacing: -0.04em;
+        padding-top: 40px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+
+    .aboutme__heading {
+        padding: 0 0 18px 0;
+    }
+    
+    .aboutme__photo {
+        width: 292px;
+        height: 352px;
+    }
+
+    .aboutme__about {
+        margin: 0;
+        padding: 20px 0 20px 0;
+        font-size: 11px;
+        line-height: 16px;
+    }
+
+    .aboutme__bio {
+        padding-bottom: 40px;
+        font-size: 11px;
+        line-height: 16px;
+    }
+}

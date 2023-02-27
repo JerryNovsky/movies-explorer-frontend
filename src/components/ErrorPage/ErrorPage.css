@@ -1,0 +1,46 @@
+.errorpage__text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 246px;
+}
+
+.errorpage__error {
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+    font-size: 140px;
+    line-height: 169px;
+}
+
+.errorpage__description {
+    margin: 0;
+    padding: 5px 0 0 0;
+}
+
+.errorpage__link {
+    padding: 184px 0 0 0;
+}
+
+@media screen and (max-width: 320px) {
+    
+    .errorpage__text-container {
+        padding: 0 10px;
+        margin-top: 329px;
+    }
+
+    .errorpage__error {
+        font-size: 80px;
+        line-height: 97px;
+    }
+
+    .errorpage__description {
+        font-size: 12px;
+        line-height: 15px;
+        padding-top: 10px;
+    }
+
+    .errorpage__link {
+        padding-top: 284px;
+    }
+}

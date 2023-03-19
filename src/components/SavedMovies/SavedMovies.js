@@ -7,8 +7,8 @@ function SavedMovies() {
   return (
     <>
       <Header page={"movies"} loggedIn={true} />
+      <SearchForm page={"savedmovies"} />
       <main className="savedmovies">
-        <SearchForm />
         <MoviesCardList />
       </main>
       <Footer />

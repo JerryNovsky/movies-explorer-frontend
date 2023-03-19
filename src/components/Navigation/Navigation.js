@@ -29,7 +29,7 @@ function Navigation({ isOpened, handleClose }) {
           </li>
         </ul>
         <Link to="/profile" className="navigation__profile-link">
-          Аккаунт <span className="navigation__profile-icon" />
+          Аккаунт
         </Link>
       </div>
     </div>

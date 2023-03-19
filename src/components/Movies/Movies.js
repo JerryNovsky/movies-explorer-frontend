@@ -7,8 +7,8 @@ function Movies() {
   return (
     <>
       <Header page={"movies"} loggedIn={true} />
+      <SearchForm />
       <main className="movies">
-        <SearchForm />
         <MoviesCardList />
       </main>
       <Footer />

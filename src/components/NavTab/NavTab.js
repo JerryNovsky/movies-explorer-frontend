@@ -1,17 +1,13 @@
 function NavTab() {
   return (
     <div className="navtab">
-      <div className="navtab__link-container">
-        <a href="#aboutproject" className="navtab__link">
-          О проекте
-        </a>
-        <a href="#techs" className="navtab__link">
-          Технологии
-        </a>
-        <a href="#aboutme" className="navtab__link">
-          Студент
-        </a>
-      </div>
+      <button className="navtab__button">О проекте</button>
+      <button href="#techs" className="navtab__button">
+        Технологии
+      </button>
+      <button href="#aboutme" className="navtab__button">
+        Студент
+      </button>
     </div>
   );
 }

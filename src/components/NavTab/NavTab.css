@@ -1,46 +1,41 @@
 .navtab {
-    background-color: #000;
-    min-height: 66px;
-    display: flex;
-    justify-content: center;
+    margin: 0 auto;
+    background-color: #F5F5F5;
+    display: grid;
+    grid-template-columns: 96px 96px 96px;
+    gap: 10px;
 }
 
-.navtab__link-container {
-    padding-top: 24px;
-    padding-bottom: 24px;
-}
-
-.navtab__link {
+.navtab__button {
+    margin: 0;
+    padding: 0;
+    width: 96px;
+    height: 36px;
     font-weight: 500;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 16px;
-    color: #fff;
-    text-decoration: underline;
+    color: #000;
+    background-color: #E8E8E8;
+    border: none;
+    border-radius: 10px; 
+    text-decoration: none;
     transition: opacity .6s;
 }
 
-.navtab__link:hover {
+.navtab__button:hover {
     opacity: .65;
 }
 
-.navtab__link:first-of-type {
-    padding-right: 40px;
-}
-
-.navtab__link:last-of-type {
-    padding-left: 40px;
-}
-
 @media screen and (max-width: 480px) {
-    .navtab__link {
-        font-size: 11px;
-    }
-
-    .navtab__link:first-of-type {
-        padding-right: 24px;
+    .navtab {
+        gap: 6px;
+        grid-template-columns: 82px 82px 82px;
     }
     
-    .navtab__link:last-of-type {
-        padding-left: 24px;
+    .navtab__button {
+        width: 82px;
+        height: 26px;
+        font-size: 10px;
+        border-radius: 6px; 
     }
   }

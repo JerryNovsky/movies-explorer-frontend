@@ -2,7 +2,7 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
 function SearchForm() {
   return (
-    <section className="section searchform__form">
+    <section className="searchform__form">
       <form className="searchform__container">
         <div className="searchform__input-container">
           <div className="searchform__search-icon"></div>
@@ -12,13 +12,14 @@ function SearchForm() {
             autoFocus
             required
           ></input>
+          <div className="searchform__border"></div>
           <button
             className="searchform__button button"
             type="submit"
             aria-label="Поиск"
           ></button>
+          <FilterCheckbox />
         </div>
-        <FilterCheckbox />
       </form>
     </section>
   );

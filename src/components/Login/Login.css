@@ -13,7 +13,7 @@
 
 .login__heading {
     margin: 0;
-    padding: 40px 0 20px 0;
+    padding: 40px 0 16px 0;
     font-weight: 500;
     font-size: 24px;
     line-height: 29px;
@@ -21,7 +21,7 @@
 
 .login__label {
     margin: 0;
-    padding: 10px 0 10px 0;
+    padding: 24px 0 0 0;
     font-style: normal;
     font-weight: 400;
     font-size: 10px;
@@ -31,41 +31,44 @@
 
 .login__input {
     margin: 0;
-    padding: 0 0 0 15px;
+    padding: 5px 0 10px 0px;
     width: 396px - 15px;
-    background-color: #f9f9f9;
     border: none;
-    height: 46px;
-    border-radius: 8px;
     font-weight: 500;
     font-size: 13px;
     line-height: 16px;
+    border-bottom: 1px solid #e8e8e8;
+
 }
 
 .login__input:focus {
     outline: none;
-    border-bottom: 1px solid #e8e8e8;
+    border-bottom: 1px solid #2BE080;
 }
 
-.login__input-error {
+.login__input_error {
+    color: #FF3055;
+}
+
+.login__span-error {
     visibility: hidden;
     font-weight: 400;
     font-size: 10px;
     line-height: 12px;
     color: #FF3055;
-    padding-top: 10px;
+    padding-top: 6px;
 }
 
-.login__input-error_active {
+.login__span-error_active {
     visibility: visible;
 }
 
 
 .login__button {
-    margin-top: 170px;
+    margin-top: 220px;
     width: 396px;
     height: 45px;
-    background-color: #3456F3;
+    background-color: #2BE080;
     border: none;
     border-radius: 3px;
     font-weight: 500;
@@ -95,7 +98,7 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
-    color: #3456F3;
+    color: #2BE080;
     padding-left: 6px;
 }
 

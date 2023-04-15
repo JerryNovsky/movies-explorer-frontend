@@ -70,7 +70,7 @@
 }
 
 @media screen and (max-width: 1024px) { 
-    .about-project__text {
+    .aboutproject__text {
         margin-top: 22px;
         font-size: 12px;
         line-height: 1.5;

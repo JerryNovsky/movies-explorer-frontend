@@ -2,7 +2,7 @@ import { NavLink, Link } from "react-router-dom";
 
 function Navigation({ isOpened, handleClose }) {
   return (
-    <div className={`navigation ${isOpened ? "navigation_opened" : ""}`}>
+    <section className={`navigation ${isOpened ? "navigation_opened" : ""}`}>
       <div className="navigation__nav-menu">
         <button
           className="button navigation__close navigation__hidden"
@@ -32,7 +32,7 @@ function Navigation({ isOpened, handleClose }) {
           Аккаунт
         </Link>
       </div>
-    </div>
+    </section>
   );
 }
 

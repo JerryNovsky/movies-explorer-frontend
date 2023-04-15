@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 
 function Login() {
   return (
-    <div className="login">
+    <section className="login">
       <Link to="/" className="header__logo login__logo" />
       <h2 className="login__heading">Рады видеть!</h2>
-      <form className="login__form__container">
+      <form className="login__form-container">
         <label className="login__label">Email</label>
         <input className="login__input" name="email" type="email" required />
         <span className="login__span-error login__span-error_active">
@@ -32,7 +32,7 @@ function Login() {
           </Link>
         </div>
       </form>
-    </div>
+    </section>
   );
 }
 

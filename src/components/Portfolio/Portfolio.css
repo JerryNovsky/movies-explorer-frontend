@@ -1,7 +1,7 @@
 .portfolio__container {
     max-width: 1140px;
     margin: 0 auto;
-    padding: 0 70px;
+    padding: 0 70px 125px 70px;
 }
 
 .portfolio__column {
@@ -15,8 +15,6 @@
 }
 
 .portfolio__link-container {
-    display: flex;
-    justify-content: space-between;
     list-style: none;
     border-bottom: 1px solid #E6E6E6;
 }
@@ -27,7 +25,10 @@
 }
 
 .portfolio__link {
-    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    align-items: center;
     font-weight: 400;
     font-size: 30px;
     line-height: 50px;
@@ -35,7 +36,7 @@
 }
 
 .portfolio__link-arrow {
-    padding: 20px 0;
+    padding: 10px 0;
     font-weight: 400;
     font-size: 30px;
     line-height: 60px;

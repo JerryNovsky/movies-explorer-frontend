@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function Register() {
   return (
-    <div className="login">
+    <section className="login">
       <Link to="/" className="header__logo login__logo" />
       <h2 className="login__heading">Добро пожаловать!</h2>
       <form className="login__form__container">
@@ -35,7 +35,7 @@ function Register() {
           </Link>
         </div>
       </form>
-    </div>
+    </section>
   );
 }
 export default Register;

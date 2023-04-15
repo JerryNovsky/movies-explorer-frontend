@@ -1,23 +1,20 @@
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList() {
+function MoviesCardList({ page }) {
   return (
-    <div>
+    <>
       <section className="section moviescardlist">
         <ul className="moviescardlist__container">
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
-          <MoviesCard />
+          <MoviesCard page={page} />
+          <MoviesCard page={page} />
+          <MoviesCard page={page} />
+          <MoviesCard page={page} />
+          <MoviesCard page={page} />
+          <MoviesCard page={page} />
         </ul>
         <button className="moviescardlist__more-button">Ещё</button>
       </section>
-    </div>
+    </>
   );
 }
 

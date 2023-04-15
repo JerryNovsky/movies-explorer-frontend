@@ -2,7 +2,7 @@ import myPhoto from "../../images/my_photo.jfif";
 
 function AboutMe() {
   return (
-    <div id="aboutme" className="aboutme__container main__container">
+    <section id="aboutme" className="aboutme__container main__container">
       <h2 className="heading aboutme__heading">Студент</h2>
       <section className="aboutme__section">
         <div className="aboutme__info-container">
@@ -29,7 +29,7 @@ function AboutMe() {
           alt="Фотография студента"
         ></img>
       </section>
-    </div>
+    </section>
   );
 }
 

@@ -5,7 +5,7 @@
     flex-direction: column;
 }
 
-.login__form__container {
+.login__form-container {
     max-width: 396px;
     display: flex;
     flex-direction: column;

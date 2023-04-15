@@ -1,6 +1,6 @@
 function Portfolio() {
   return (
-    <div className="portfolio">
+    <section className="portfolio">
       <div className="portfolio__container">
         <h3 className="portfolio__title">Портфолио</h3>
         <ul className="portfolio__links-list">
@@ -12,8 +12,8 @@ function Portfolio() {
               target="_blank"
             >
               Статичный сайт
+              <span className="portfolio__link-arrow">&#8599;</span>
             </a>
-            <span className="portfolio__link-arrow">&#8599;</span>
           </li>
           <li className="portfolio__link-container">
             <a
@@ -23,8 +23,8 @@ function Portfolio() {
               target="_blank"
             >
               Адаптивный сайт
+              <span className="portfolio__link-arrow">&#8599;</span>
             </a>
-            <span className="portfolio__link-arrow">&#8599;</span>
           </li>
           <li className="portfolio__link-container">
             <a
@@ -34,12 +34,12 @@ function Portfolio() {
               target="_blank"
             >
               Одностраничное приложение
+              <span className="portfolio__link-arrow">&#8599;</span>
             </a>
-            <span className="portfolio__link-arrow">&#8599;</span>
           </li>
         </ul>
       </div>
-    </div>
+    </section>
   );
 }
 

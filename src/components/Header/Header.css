@@ -1,0 +1,129 @@
+.header {
+    display: grid;
+    grid-template-columns: 57px 1fr;
+    padding: 18px 70px;
+    align-items: center;
+}
+
+.header__logo {
+    width: 38px;
+    height: 38px;
+    background-image: url(../../images/logo.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition-duration: .6s;
+}
+
+.header__logo:hover {
+    filter: brightness(90%);
+}
+
+.header__selector {
+    display: flex;
+}
+
+.header__account-button {
+    width: 100px;
+    height: 32px;
+    border-radius: 40px;
+    border: none;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, .25);
+    background-color: #ffffff;
+}
+
+.header_place_movies {
+    max-width: 1140px;
+}
+
+.header_place_profile {
+    max-width: 1140px;
+}
+
+.header__link {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: #000;
+}
+
+.header__link-container {
+   display: flex;
+   align-items: center;
+   justify-self: end;
+}
+
+.header__signin-button {
+    width: 76px;
+    height: 32px;
+    margin-left: 30px;
+    background-color:#2BE080;
+    border-radius: 3px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 32px;
+    text-decoration: none;
+    color: #000;
+    transition-duration: .6s;
+}
+
+.header__signin-button:hover {
+    filter: brightness(90%);
+}
+
+.header__nav-button {
+    display: none;
+    width: 44px;
+    height: 38px;
+    border: none;
+    background: url("../../images/nav_button.svg") no-repeat center;
+    cursor: pointer;
+    transition: opacity 0.5s;
+}
+
+
+@media screen and (max-width: 1024px) {
+    
+    .header {
+        display: flex;
+        justify-content: space-between;
+        padding: 18px 20px;
+      }
+    
+    .header__nav-button {
+        display: block;
+    }
+}
+  
+@media screen and (max-width: 630px) {
+    
+    .header_place_movies {
+        padding-left: 10px;
+        padding-right: 10px ;
+    }
+}
+
+
+  @media screen and (max-width: 480px) {
+    
+    .header {
+        padding: 18px 14px;
+    }
+    
+    .header__link {
+        font-size: 10px;
+    }
+
+    .header__signin-button {
+        width: 54px;
+        height: 26px;
+        margin-left: 14px;
+        font-size: 10px;
+        line-height: 24px;
+    }
+
+    .header__nav-button {
+        width: 40px;
+        height: 43px;
+    }
+}

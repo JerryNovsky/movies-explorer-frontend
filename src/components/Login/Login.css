@@ -1,0 +1,147 @@
+.login {
+    margin: 70px auto 0 auto;
+    max-width: 396px;
+    display: flex;
+    flex-direction: column;
+}
+
+.login__form-container {
+    max-width: 396px;
+    display: flex;
+    flex-direction: column;
+}
+
+.login__heading {
+    margin: 0;
+    padding: 40px 0 16px 0;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+}
+
+.login__label {
+    margin: 0;
+    padding: 24px 0 0 0;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #A0A0A0;
+}
+
+.login__input {
+    margin: 0;
+    padding: 5px 0 10px 0px;
+    width: 396px - 15px;
+    border: none;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    border-bottom: 1px solid #e8e8e8;
+
+}
+
+.login__input:focus {
+    outline: none;
+    border-bottom: 1px solid #2BE080;
+}
+
+.login__input_error {
+    color: #FF3055;
+}
+
+.login__span-error {
+    visibility: hidden;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #FF3055;
+    padding-top: 6px;
+}
+
+.login__span-error_active {
+    visibility: visible;
+}
+
+
+.login__button {
+    margin-top: 220px;
+    width: 396px;
+    height: 45px;
+    background-color: #2BE080;
+    border: none;
+    border-radius: 3px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 45px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.login__text-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 16px;
+
+}
+
+.login__text {
+    margin: 0;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #A0A0A0;
+}
+
+.login__link {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #2BE080;
+    padding-left: 6px;
+}
+
+.login__logo {
+    margin: 0;
+}
+
+@media screen and (max-width: 1024px) {
+    .login {
+        margin-top: 232px;
+    }
+}
+
+
+@media screen and (max-width: 480px) {
+    .login {
+        margin: 56px 30px 0 30px;
+        align-items: center;
+    }
+
+    .login__heading {
+        padding: 50px 0 70px 0;
+    }
+
+    .login__input {
+        max-width: 260px;
+        padding-left: 0;
+    }
+
+    .login__button {
+        max-width: 260px;
+        font-size: 12px;
+        margin-top: 267px;
+    }
+
+    .login__text {
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .login__link {
+        font-size: 12px;
+        line-height: 15px;
+        padding-left: 7px;
+    }
+}

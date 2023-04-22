@@ -1,0 +1,116 @@
+.aboutproject__container {
+    display: flex;
+    flex-direction: column;
+}
+
+.aboutproject__description {
+    padding-top: 70px;
+    padding-bottom: 110px;
+    display: flex;
+}
+
+.aboutproject__description-column {
+    display: flex;
+    flex-direction: column;
+    max-width: 550px;
+}
+
+.aboutproject__description-column:first-of-type  {
+    padding-right: 40px;
+}
+
+.aboutproject__title {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    margin: 0;
+    padding: 0 0 26px 0;   
+}
+
+.aboutproject__text {
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.aboutproject__metrics {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+
+.aboutproject__weeks {
+    font-weight: 400;
+    width: 100%;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    padding-top: 9px;
+    padding-bottom: 9px;
+}
+
+.aboutproject__weeks_type_backend {
+    background-color:#2BE080;
+}
+
+.aboutproject__weeks_type_frontend {
+    background-color: #f2f2f2;
+}
+
+.aboutproject__types {
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #A0A0A0;
+    text-align: center;
+    padding-top: 14px;
+}
+
+@media screen and (max-width: 1024px) { 
+    .aboutproject__text {
+        margin-top: 22px;
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      .aboutproject__title {
+        font-size: 18px;
+        padding-bottom: 22px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .aboutproject__description {
+        flex-direction: column;
+        padding: 60px 0;
+    }
+
+    .aboutproject__title {
+        font-size: 18px;
+        margin-bottom: 18px;
+    }
+     
+    .aboutproject__description-column:first-of-type {
+        padding: 0;
+        margin-bottom: 56px;
+    }
+
+    .aboutproject__weeks {
+        font-size: 11px;
+        line-height: 13px;
+    }
+
+    .aboutproject__metrics {
+        grid-template-columns: 100px 1fr;
+    }
+
+    .aboutproject__types {
+        font-weight: 400;
+        font-size: 11px;
+        line-height: 13px;
+        margin: 10px 0 0 0;
+    }
+}

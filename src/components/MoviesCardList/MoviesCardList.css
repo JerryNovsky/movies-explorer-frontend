@@ -25,6 +25,7 @@
     font-size: 12px;
     line-height: 15px;
     transition-duration: .6s;
+    align-self: center;
 }
 
 .moviescardlist__more-button:hover {

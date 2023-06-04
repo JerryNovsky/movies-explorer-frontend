@@ -36,26 +36,25 @@ export function saveNewMovie({
   thumbnail,
   movieId,
   nameRU,
-  nameEN,
-}) {
+  nameEN}) {
   return fetch(`${MAIN_URL}/movies`, {
-    method: "POST",
+    method: 'POST',
     headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify({
-      country,
-      director,
-      duration,
-      year,
-      description,
-      image,
-      trailerLink,
-      thumbnail,
-      movieId,
-      nameRU,
-      nameEN,
+  country,
+  director,
+  duration,
+  year,
+  description,
+  image,
+  trailerLink,
+  thumbnail,
+  movieId,
+  nameRU,
+  nameEN,
     }),
   }).then((res) => checkResponse(res));
 }
@@ -72,10 +71,10 @@ export function getSavedMovies() {
 
 export function deleteMovie(id) {
   return fetch(`${MAIN_URL}/movies/${id}`, {
-    method: "DELETE",
+    method: 'DELETE',
     headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
+    }
   }).then((res) => checkResponse(res));
-};
+}

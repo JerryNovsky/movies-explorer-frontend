@@ -13,8 +13,8 @@ function MoviesCardList({
         <MoviesCard
           movie={item}
           isSavedMoviesPage={isSavedMoviesPage}
-          handleDelete={handleDeleteMovie}
-          handleSave={handleSaveMovie}
+          handleDeleteMovie={handleDeleteMovie}
+          handleSaveMovie={handleSaveMovie}
           savedMovies={savedMovies}
         />
       </li>

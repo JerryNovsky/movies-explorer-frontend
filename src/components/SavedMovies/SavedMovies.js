@@ -1,42 +1,39 @@
-import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import Header from "../Header/Header";
-import SearchForm from "../SearchForm/SearchForm";
-import Footer from "../Footer/Footer";
-import { useState, useEffect } from "react";
-import { filterByKeyword, filterByDuration } from "../../utils/filters";
+import './SavedMovies.css';
+import { useState, useEffect } from 'react';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
+import SearchForm from '../SearchForm/SearchForm';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import { filterByKeyword, filterByDuration } from '../../utils/filters';
 
-function SavedMovies(savedMovies, loggedIn, handleDeleteMovie, isError) {
+function SavedMovies({ savedMovies, loggedIn, handleDeleteMovie, isError }) {
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
-  const [isFliterActive, setIsFilterActive] = useState(false);
+  const [isFilterActive, setIsFilterActive] = useState(false);
   const handleSearch = (searchQuery) => {
     setSearchedMovies(filterByKeyword(savedMovies, searchQuery));
   };
-
   const handleCheckBox = () => {
     setIsFilterActive((prevState) => !prevState);
   };
-
   useEffect(() => {
     setSearchedMovies(savedMovies);
   }, [savedMovies]);
-
   useEffect(() => {
-    if (isFliterActive) {
+    if (isFilterActive) {
       setFilteredMovies(filterByDuration(searchedMovies));
     } else {
       setFilteredMovies(searchedMovies);
     }
-  }, [isFliterActive, searchedMovies]);
-
+  }, [isFilterActive, searchedMovies]);
   return (
     <>
-      <Header page={"movies"} loggedIn={loggedIn} />
-      <main className="savedmovies">
+      <Header page={'saved-movies'} loggedIn={loggedIn} />
+      <main className="saved-movies">
         <SearchForm
-          page={"savedmovies"}
+          name={'saved-movies'}
           handleSearch={handleSearch}
-          isChecked={isFliterActive}
+          isChecked={isFilterActive}
           handleCheckBox={handleCheckBox}
         />
         {isError && (
@@ -50,7 +47,6 @@ function SavedMovies(savedMovies, loggedIn, handleDeleteMovie, isError) {
         )}
         {!isError && filteredMovies.length > 0 && (
           <MoviesCardList
-            page={"saved"}
             movies={filteredMovies}
             isSavedMoviesPage={true}
             handleDeleteMovie={handleDeleteMovie}

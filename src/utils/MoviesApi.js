@@ -5,7 +5,6 @@ const checkResponse = (res) => {
 };
 
 export function getAllMovies() {
-  console.log("PUCK!");
   return fetch(MOVIES_URL, {
     method: "GET",
     headers: {

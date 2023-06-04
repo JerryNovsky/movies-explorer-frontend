@@ -69,7 +69,7 @@ function App() {
         setCurrentUser(user);
         setIsInfoTooltipOpen(true);
       })
-      .catch((err) => {
+      .catch(() => {
         setIsInfoTooltipOpen(true);
       })
       .finally(() => setIsFormLoading(false));
@@ -79,16 +79,17 @@ function App() {
     setIsInfoTooltipOpen(false);
   }
 
-  function loadSavedMovies() {
+  const loadSavedMovies = () => {
     MainApi.getSavedMovies()
-      .then((res) => setSavedMovies(res.data))
+      .then((res) => { 
+        setSavedMovies(res)
+      })
       .catch((err) => {
         setIsMoviesLoadingError(true);
         console.log(err);
       });
-  }
-
-  function handleSaveMovie(data) {
+  };
+  const handleSaveMovie = (data) => {
     MainApi.saveNewMovie(data)
       .then((res) => {
         setSavedMovies((prevVal) => {
@@ -96,16 +97,23 @@ function App() {
         });
       })
       .catch((err) => console.log(err));
-  }
-  function handleDeleteMovie(id) {
+  };
+  const handleDeleteMovie = (id) => {
     MainApi.deleteMovie(id)
       .then((res) => {
         setSavedMovies((prevVal) => {
-          return prevVal.filter((item) => item._id !== res.data._id);
+          return prevVal.filter((item) => item._id !== res._id);
         });
       })
       .catch((err) => console.log(err));
-  }
+  };
+
+  useEffect(() => {
+    if (loggedIn) {
+      loadSavedMovies();
+    }
+  }, [loggedIn]);
+
   useEffect(() => {
     MainApi.getCurrentUser()
       .then((user) => {
@@ -119,11 +127,6 @@ function App() {
         console.log(err);
       });
   }, []);
-  useEffect(() => {
-    if (loggedIn) {
-      loadSavedMovies();
-    }
-  }, [loggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

@@ -1,17 +1,27 @@
-import './SavedMovies.css';
-import { useState, useEffect } from 'react';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
-import SearchForm from '../SearchForm/SearchForm';
-import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import { filterByKeyword, filterByDuration } from '../../utils/filters';
+import "./SavedMovies.css";
+import { useState, useEffect } from "react";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+import SearchForm from "../SearchForm/SearchForm";
+import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
 function SavedMovies({ savedMovies, loggedIn, handleDeleteMovie, isError }) {
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [isFilterActive, setIsFilterActive] = useState(false);
+
+  const filterName = (array, key) => {
+    return array.filter((movie) => {
+      return movie.nameRU.toLowerCase().includes(key.toLowerCase());
+    });
+  };
+
+  const filterDuration = (array) => {
+    return array.filter((movie) => movie.duration <= 40);
+  };
+
   const handleSearch = (searchQuery) => {
-    setSearchedMovies(filterByKeyword(savedMovies, searchQuery));
+    setSearchedMovies(filterName(savedMovies, searchQuery));
   };
   const handleCheckBox = () => {
     setIsFilterActive((prevState) => !prevState);
@@ -21,17 +31,17 @@ function SavedMovies({ savedMovies, loggedIn, handleDeleteMovie, isError }) {
   }, [savedMovies]);
   useEffect(() => {
     if (isFilterActive) {
-      setFilteredMovies(filterByDuration(searchedMovies));
+      setFilteredMovies(filterDuration(searchedMovies));
     } else {
       setFilteredMovies(searchedMovies);
     }
   }, [isFilterActive, searchedMovies]);
   return (
     <>
-      <Header page={'saved-movies'} loggedIn={loggedIn} />
+      <Header page={"saved-movies"} loggedIn={loggedIn} />
       <main className="saved-movies">
         <SearchForm
-          name={'saved-movies'}
+          name={"saved-movies"}
           handleSearch={handleSearch}
           isChecked={isFilterActive}
           handleCheckBox={handleCheckBox}
@@ -43,7 +53,9 @@ function SavedMovies({ savedMovies, loggedIn, handleDeleteMovie, isError }) {
           </p>
         )}
         {!isError && filteredMovies.length === 0 && (
-          <p className="movies__error-message">Ничего не найдено</p>
+          <p className="movies__error-message">
+            К сожалению, ничего не найдено
+          </p>
         )}
         {!isError && filteredMovies.length > 0 && (
           <MoviesCardList

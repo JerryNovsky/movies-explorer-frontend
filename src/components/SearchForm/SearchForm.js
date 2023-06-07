@@ -1,26 +1,22 @@
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import { useState, useEffect } from "react";
 
-function SearchForm({ name, handleSearch, isChecked, handleCheckbox }) {
+function SearchForm({ name, onSearch, isChecked, onCheckbox }) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchQueryError, setSearchQueryError] = useState("");
-  const handleSearchInputChange = (e) => {
+  const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
-    setSearchQueryError("");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    searchQuery
-      ? handleSearch(searchQuery)
-      : setSearchQueryError("Нужно ввести ключевое слово");
+    onSearch(searchQuery);
   };
 
   useEffect(() => {
     if (name === "movies") {
-      const query = localStorage.getItem("searchQuery");
-      if (query) {
-        setSearchQuery(query);
+      const searchValue = localStorage.getItem("searchValue");
+      if (searchValue) {
+        setSearchQuery(searchValue);
       }
     }
   }, [name]);
@@ -38,7 +34,7 @@ function SearchForm({ name, handleSearch, isChecked, handleCheckbox }) {
             className="searchform__input"
             placeholder="Фильм"
             autoFocus
-            onChange={handleSearchInputChange}
+            onChange={handleSearchChange}
             value={searchQuery}
             required
           ></input>
@@ -48,10 +44,7 @@ function SearchForm({ name, handleSearch, isChecked, handleCheckbox }) {
             type="submit"
             aria-label="Поиск"
           ></button>
-          <FilterCheckbox
-            isChecked={isChecked}
-            handleCheckBox={handleCheckbox}
-          />
+          <FilterCheckbox isChecked={isChecked} handleCheckbox={onCheckbox} />
         </div>
       </form>
     </section>

@@ -5,40 +5,40 @@ import Footer from "../Footer/Footer";
 import Preloader from "../Preloader/Preloader";
 import { useState, useEffect } from "react";
 import * as MoviesApi from "../../utils/MoviesApi";
-import { filterByKeyword, filterByDuration } from "../../utils/filters";
-import useWindowWidth from "../../utils/useWindowWidth";
 
 function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
-  
-const SCREEN_SIZE_MEDIUM = 1024;
-const SCREEN_SIZE_SMALL = 480;
-const CARDS_PER_PAGE_LARGE = 12;
-const CARDS_PER_PAGE_MEDIUM = 8;
-const CARDS_PER_PAGE_SMALL = 5;
-const MORE_CARDS_LARGE = 6;
-const MORE_CARDS_MEDIUM = 4;
-  
   const [allMovies, setAllMovies] = useState([]);
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
-  const [slicedMovies, setSlicedMovies] = useState([]);
-  const windowWidth = useWindowWidth();
+  const [selectedMovies, setSelectedMovies] = useState([]);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isFilterActive, setIsFilterActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const handleSearch = (searchQuery) => {
+  const [screenSize, setScreenSize] = useState(undefined);
+
+  const filterName = (array, key) => {
+    return array.filter((movie) => {
+      return movie.nameRU.toLowerCase().includes(key.toLowerCase());
+    });
+  };
+
+  const filterDuration = (array) => {
+    return array.filter((movie) => movie.duration <= 40);
+  };
+
+  const handleSearch = (query) => {
+    setIsError(false);
     setIsLoading(true);
     setIsSearchActive(true);
-    setIsError(false);
     if (allMovies.length === 0) {
       MoviesApi.getAllMovies()
         .then((res) => {
           setAllMovies(res);
-          localStorage.setItem('allMovies', JSON.stringify(res));
-          const filteredArray = filterByKeyword(res, searchQuery);
+          localStorage.setItem("allMovies", JSON.stringify(res));
+          const filteredArray = filterName(res, query);
           setSearchedMovies(filteredArray);
-          localStorage.setItem('searchedMovies', JSON.stringify(filteredArray));
+          localStorage.setItem("searchedMovies", JSON.stringify(filteredArray));
         })
         .catch((err) => {
           console.log(err);
@@ -46,57 +46,61 @@ const MORE_CARDS_MEDIUM = 4;
         })
         .finally(() => setIsLoading(false));
     } else {
-      const filteredArray = filterByKeyword(allMovies, searchQuery);
+      const filteredArray = filterName(allMovies, query);
       setSearchedMovies(filteredArray);
-      localStorage.setItem('searchedMovies', JSON.stringify(filteredArray));
+      localStorage.setItem("searchedMovies", JSON.stringify(filteredArray));
       setIsLoading(false);
     }
-    localStorage.setItem('searchQuery', searchQuery);
+    localStorage.setItem("searchValue", query);
     isFilterActive
-      ? localStorage.setItem('filterActive', 'true')
-      : localStorage.removeItem('filterActive');
+      ? localStorage.setItem("filterActive", "true")
+      : localStorage.removeItem("filterActive");
   };
-  const handleCheckBox = () => {
+
+  const handleCheckbox = () => {
     isFilterActive
-      ? localStorage.removeItem('filterActive')
-      : localStorage.setItem('filterActive', 'true');
+      ? localStorage.removeItem("filterActive")
+      : localStorage.setItem("filterActive", "true");
     setIsFilterActive((prevState) => !prevState);
   };
-  const addMovies = () => {
-    let addition =
-      windowWidth > SCREEN_SIZE_MEDIUM ? MORE_CARDS_LARGE : MORE_CARDS_MEDIUM;
-    setSlicedMovies((prevVal) => {
+
+  const addMoviesList = () => {
+    let addition = screenSize > 1024 ? 6 : 4;
+    setSelectedMovies((prevVal) => {
       return prevVal.concat(
-        filteredMovies.slice(prevVal.length, prevVal.length + addition),
+        filteredMovies.slice(prevVal.length, prevVal.length + addition)
       );
     });
   };
+
+  useEffect(() => {
+    let timeout;
+    const getScreenSize = () => {
+      setScreenSize(window.innerWidth);
+    };
+    const handleResize = () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        getScreenSize();
+      }, "500");
+    };
+    window.addEventListener("resize", handleResize);
+    getScreenSize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   useEffect(() => {
     if (isFilterActive) {
-      setFilteredMovies(filterByDuration(searchedMovies));
+      setFilteredMovies(filterDuration(searchedMovies));
     } else {
       setFilteredMovies(searchedMovies);
     }
   }, [isFilterActive, searchedMovies]);
+
   useEffect(() => {
-    let limit;
-    if (windowWidth > SCREEN_SIZE_MEDIUM) {
-      limit = CARDS_PER_PAGE_LARGE;
-    } else if (windowWidth > SCREEN_SIZE_SMALL) {
-      limit = CARDS_PER_PAGE_MEDIUM;
-    } else {
-      limit = CARDS_PER_PAGE_SMALL;
-    }
-    if (filteredMovies.length > limit) {
-      setSlicedMovies(filteredMovies.slice(0, limit));
-    } else {
-      setSlicedMovies(filteredMovies);
-    }
-  }, [windowWidth, filteredMovies]);
-  useEffect(() => {
-    const all = localStorage.getItem('allMovies');
-    const searched = localStorage.getItem('searchedMovies');
-    const isChecked = localStorage.getItem('filterActive');
+    const all = localStorage.getItem("allMovies");
+    const searched = localStorage.getItem("searchedMovies");
+    const isChecked = localStorage.getItem("filterActive");
     if (all) {
       setAllMovies(JSON.parse(all));
     }
@@ -108,15 +112,31 @@ const MORE_CARDS_MEDIUM = 4;
     }
   }, []);
 
+  useEffect(() => {
+    let limit;
+    if (screenSize > 1024) {
+      limit = 12;
+    } else if (screenSize > 480) {
+      limit = 8;
+    } else {
+      limit = 5;
+    }
+    if (filteredMovies.length > limit) {
+      setSelectedMovies(filteredMovies.slice(0, limit));
+    } else {
+      setSelectedMovies(filteredMovies);
+    }
+  }, [screenSize, filteredMovies]);
+
   return (
     <>
       <Header page={"movies"} loggedIn={loggedIn} />
       <main className="movies">
         <SearchForm
           name={"movies"}
-          handleSearch={handleSearch}
+          onSearch={handleSearch}
           isChecked={isFilterActive}
-          handleCheckBox={handleCheckBox}
+          onCheckbox={handleCheckbox}
         />
         {isLoading && <Preloader />}
         {isError && (
@@ -128,22 +148,24 @@ const MORE_CARDS_MEDIUM = 4;
           !isError &&
           isSearchActive &&
           filteredMovies.length === 0 && (
-            <p className="movies__error-message">Ничего не найдено</p>
+            <p className="movies__error-message">
+              К сожалению, ничего не найдено
+            </p>
           )}
         {!isLoading && !isError && filteredMovies.length > 0 && (
           <>
             <MoviesCardList
-              movies={slicedMovies}
+              movies={selectedMovies}
               savedMovies={savedMovies}
               isSavedMoviesPage={false}
               handleSaveMovie={handleSaveMovie}
               handleDeleteMovie={handleDeleteMovie}
             />
-            {slicedMovies.length < filteredMovies.length && (
+            {selectedMovies.length < filteredMovies.length && (
               <button
                 className="moviescardlist__more-button"
                 type="button"
-                onClick={addMovies}
+                onClick={addMoviesList}
               >
                 Ещё
               </button>

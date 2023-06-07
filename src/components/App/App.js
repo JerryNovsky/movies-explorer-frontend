@@ -81,8 +81,8 @@ function App() {
 
   const loadSavedMovies = () => {
     MainApi.getSavedMovies()
-      .then((res) => { 
-        setSavedMovies(res)
+      .then((res) => {
+        setSavedMovies(res);
       })
       .catch((err) => {
         setIsMoviesLoadingError(true);
@@ -91,10 +91,8 @@ function App() {
   };
   const handleSaveMovie = (data) => {
     MainApi.saveNewMovie(data)
-      .then((res) => {
-        setSavedMovies((prevVal) => {
-          return prevVal.concat(res.data);
-        });
+      .then((movie) => {
+        setSavedMovies([movie, ...savedMovies]);
       })
       .catch((err) => console.log(err));
   };

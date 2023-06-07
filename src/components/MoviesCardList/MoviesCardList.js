@@ -7,7 +7,7 @@ function MoviesCardList({
   handleSaveMovie,
   handleDeleteMovie,
 }) {
-  const cards = movies.map((item) => {
+  const moviesCard = movies.map((item) => {
     return (
       <li className="moviescard" key={isSavedMoviesPage ? item._id : item.id}>
         <MoviesCard
@@ -23,7 +23,7 @@ function MoviesCardList({
 
   return (
     <section className="section moviescardlist">
-      <ul className="moviescardlist__container">{cards}</ul>
+      <ul className="moviescardlist__container">{moviesCard}</ul>
     </section>
   );
 }

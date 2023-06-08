@@ -7,10 +7,10 @@ function SearchForm({ name, onSearch, isChecked, onCheckbox }) {
     setSearchQuery(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
     onSearch(searchQuery);
-  };
+  }
 
   useEffect(() => {
     if (name === "movies") {

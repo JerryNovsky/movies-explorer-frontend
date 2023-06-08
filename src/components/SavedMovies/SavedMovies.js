@@ -10,22 +10,24 @@ function SavedMovies({ savedMovies, loggedIn, handleDeleteMovie, isError }) {
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [isFilterActive, setIsFilterActive] = useState(false);
 
-  const filterName = (array, key) => {
+  function filterName(array, key) {
     return array.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(key.toLowerCase());
     });
-  };
+  }
 
-  const filterDuration = (array) => {
+  function filterDuration(array) {
     return array.filter((movie) => movie.duration <= 40);
-  };
+  }
 
-  const handleSearch = (searchQuery) => {
+  function handleSearch(searchQuery) {
     setSearchedMovies(filterName(savedMovies, searchQuery));
-  };
-  const handleCheckBox = () => {
+  }
+
+  function handleCheckbox() {
     setIsFilterActive((prevState) => !prevState);
-  };
+  }
+
   useEffect(() => {
     setSearchedMovies(savedMovies);
   }, [savedMovies]);
@@ -44,7 +46,7 @@ function SavedMovies({ savedMovies, loggedIn, handleDeleteMovie, isError }) {
           name={"saved-movies"}
           handleSearch={handleSearch}
           isChecked={isFilterActive}
-          handleCheckBox={handleCheckBox}
+          handleCheckBox={handleCheckbox}
         />
         {isError && (
           <p className="movies__error-message">

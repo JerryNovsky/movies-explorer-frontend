@@ -17,17 +17,20 @@ function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
   const [isError, setIsError] = useState(false);
   const [screenSize, setScreenSize] = useState(undefined);
 
-  const filterName = (array, key) => {
+  //сортировка фильмов по названию
+  function filterName(array, key) {
     return array.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(key.toLowerCase());
     });
-  };
+  }
 
-  const filterDuration = (array) => {
+  //сортировка фильмов по длительности
+  function filterDuration(array) {
     return array.filter((movie) => movie.duration <= 40);
-  };
+  }
 
-  const handleSearch = (query) => {
+  //обработчик поискового запроса
+  function handleSearch(query) {
     setIsError(false);
     setIsLoading(true);
     setIsSearchActive(true);
@@ -55,23 +58,25 @@ function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
     isFilterActive
       ? localStorage.setItem("filterActive", "true")
       : localStorage.removeItem("filterActive");
-  };
+  }
 
-  const handleCheckbox = () => {
+  //обработчик чекбокса с короткометражками
+  function handleCheckbox() {
     isFilterActive
       ? localStorage.removeItem("filterActive")
       : localStorage.setItem("filterActive", "true");
     setIsFilterActive((prevState) => !prevState);
-  };
+  }
 
-  const addMoviesList = () => {
+  //управление кнопкой "ещё" для загрузки фильмов
+  function addMoviesList() {
     let addition = screenSize > 1024 ? 6 : 4;
     setSelectedMovies((prevVal) => {
       return prevVal.concat(
         filteredMovies.slice(prevVal.length, prevVal.length + addition)
       );
     });
-  };
+  }
 
   useEffect(() => {
     let timeout;
@@ -98,21 +103,6 @@ function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
   }, [isFilterActive, searchedMovies]);
 
   useEffect(() => {
-    const all = localStorage.getItem("allMovies");
-    const searched = localStorage.getItem("searchedMovies");
-    const isChecked = localStorage.getItem("filterActive");
-    if (all) {
-      setAllMovies(JSON.parse(all));
-    }
-    if (searched) {
-      setSearchedMovies(JSON.parse(searched));
-    }
-    if (isChecked) {
-      setIsFilterActive(true);
-    }
-  }, []);
-
-  useEffect(() => {
     let limit;
     if (screenSize > 1024) {
       limit = 12;
@@ -127,6 +117,21 @@ function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
       setSelectedMovies(filteredMovies);
     }
   }, [screenSize, filteredMovies]);
+
+  useEffect(() => {
+    const allMovies = localStorage.getItem("allMovies");
+    const searchedMovies = localStorage.getItem("searchedMovies");
+    const isChecked = localStorage.getItem("filterActive");
+    if (allMovies) {
+      setAllMovies(JSON.parse(allMovies));
+    }
+    if (searchedMovies) {
+      setSearchedMovies(JSON.parse(searchedMovies));
+    }
+    if (isChecked) {
+      setIsFilterActive(true);
+    }
+  }, []);
 
   return (
     <>

@@ -7,11 +7,7 @@ function Register({ handleRegister }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleRegister({
-      name: values.name,
-      email: values.email,
-      password: values.password,
-    });
+    handleRegister(values.name, values.email, values.password);
   };
 
   return (

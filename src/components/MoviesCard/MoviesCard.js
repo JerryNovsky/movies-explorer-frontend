@@ -19,7 +19,8 @@ function MoviesCard({
     }
   }, [movie.id, savedMovies, isSavedMoviesPage]);
 
-  const toggleSaveMovie = () => {
+  //добавление фильма в избранное
+  function toggleSaveMovie() {
     savedMovie
       ? handleDeleteMovie(savedMovie._id)
       : handleSaveMovie({
@@ -36,12 +37,15 @@ function MoviesCard({
           nameRU: movie.nameRU || "no name",
           nameEN: movie.nameEN || "no name",
         });
-  };
-  const toggleDeleteMovie = (e) => {
+  }
+
+  //удаление фильма из избранного
+  function toggleDeleteMovie(e) {
     e.preventDefault();
     handleDeleteMovie(movie._id);
-  };
+  }
 
+  //перевод длительности фильма в часы и минуты
   function convertTimeDuration(mins) {
     let hours = Math.trunc(mins / 60);
     let minutes = mins % 60;

@@ -15,25 +15,25 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 function App() {
-  const [currentUser, setCurrentUser] = useState({});
-  const [registerError, setRegisterError] = useState("");
-  const [loggedIn, setLoggedIn] = useState(localStorage.getItem("isAuth"));
-  const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
+
+  const [registerError, setRegisterError] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem("isAuth"));
+  const [currentUser, setCurrentUser] = useState({});
   const [isMoviesLoadingError, setIsMoviesLoadingError] = useState(false);
-  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [savedMovies, setSavedMovies] = useState([]);
   const [isFormLoading, setIsFormLoading] = useState(false);
 
-  function handleLogin({ email, password }) {
+  //функция авторизации на сайте
+  function authorization(email, password) {
     setIsFormLoading(true);
     Auth.login({ email, password })
-      .then((user) => {
-        setCurrentUser(user);
+      .then((res) => {
+        localStorage.getItem("isAuth");
+        localStorage.setItem("token", res.token);
+        setCurrentUser(res);
         setLoggedIn(true);
-        localStorage.setItem("isAuth", true);
-        localStorage.setItem("token", user.token);
-        setLoginError("");
         navigate("/movies");
       })
       .catch((err) => {
@@ -42,19 +42,20 @@ function App() {
       .finally(() => setIsFormLoading(false));
   }
 
-  function handleRegister({ name, email, password }) {
+  //функция регистрации нового пользователя
+  function registration(name, email, password) {
     setIsFormLoading(true);
     Auth.register({ name, email, password })
       .then(() => {
-        setRegisterError("");
-        handleLogin({ email, password });
+        authorization(email, password);
       })
       .catch((err) => {
-        setRegisterError(err.message);
+        setLoginError(err.message);
       })
       .finally(() => setIsFormLoading(false));
   }
 
+  //выход из профиля
   function logout() {
     setLoggedIn(false);
     navigate("/");
@@ -62,41 +63,38 @@ function App() {
     localStorage.clear();
   }
 
-  function handleUpdateUser({ name, email }) {
+  //обновлении информации о себе
+  function updateUser({ name, email }) {
     setIsFormLoading(true);
     MainApi.updateUser({ name, email })
       .then((user) => {
         setCurrentUser(user);
-        setIsInfoTooltipOpen(true);
-      })
-      .catch(() => {
-        setIsInfoTooltipOpen(true);
       })
       .finally(() => setIsFormLoading(false));
   }
 
-  function handleInfoTooltipClose() {
-    setIsInfoTooltipOpen(false);
-  }
-
-  const loadSavedMovies = () => {
+  //получение списка избранных фильмов
+  const getSavedMovies = () => {
     MainApi.getSavedMovies()
       .then((res) => {
         setSavedMovies(res);
       })
-      .catch((err) => {
+      .catch(() => {
         setIsMoviesLoadingError(true);
-        console.log(err);
       });
   };
-  const handleSaveMovie = (data) => {
+
+  //добавление фильма в избранное
+  const addToSavedMovies = (data) => {
     MainApi.saveNewMovie(data)
       .then((movie) => {
         setSavedMovies([movie, ...savedMovies]);
       })
       .catch((err) => console.log(err));
   };
-  const handleDeleteMovie = (id) => {
+
+  //удаление фильмов из избранного
+  const removeFromSavedMovies = (id) => {
     MainApi.deleteMovie(id)
       .then((res) => {
         setSavedMovies((prevVal) => {
@@ -106,12 +104,14 @@ function App() {
       .catch((err) => console.log(err));
   };
 
+  //получение сохранненых конкретным пользователем фильмов
   useEffect(() => {
     if (loggedIn) {
-      loadSavedMovies();
+      getSavedMovies();
     }
   }, [loggedIn]);
 
+  //сохранение данных о пользователе в локальном хранилище
   useEffect(() => {
     MainApi.getCurrentUser()
       .then((user) => {
@@ -119,10 +119,9 @@ function App() {
         localStorage.setItem("isAuth", true);
         setCurrentUser(user);
       })
-      .catch((err) => {
+      .catch(() => {
         setLoggedIn(false);
         localStorage.clear();
-        console.log(err);
       });
   }, []);
 
@@ -139,8 +138,8 @@ function App() {
                   component={Movies}
                   loggedIn={loggedIn}
                   savedMovies={savedMovies}
-                  handleSaveMovie={handleSaveMovie}
-                  handleDeleteMovie={handleDeleteMovie}
+                  handleSaveMovie={addToSavedMovies}
+                  handleDeleteMovie={removeFromSavedMovies}
                 />
               }
             />
@@ -151,7 +150,7 @@ function App() {
                   component={SavedMovies}
                   loggedIn={loggedIn}
                   savedMovies={savedMovies}
-                  handleDeleteMovie={handleDeleteMovie}
+                  handleDeleteMovie={removeFromSavedMovies}
                   isError={isMoviesLoadingError}
                 />
               }
@@ -163,9 +162,7 @@ function App() {
                   component={Profile}
                   loggedIn={loggedIn}
                   logout={logout}
-                  handleUpdateProfile={handleUpdateUser}
-                  isInfoTooltipOpen={isInfoTooltipOpen}
-                  handleInfoTooltipClose={handleInfoTooltipClose}
+                  handleUpdateProfile={updateUser}
                 />
               }
             />
@@ -176,7 +173,7 @@ function App() {
                   <Navigate to="/" replace />
                 ) : (
                   <Login
-                    handleLogin={handleLogin}
+                    handleLogin={authorization}
                     loginError={loginError}
                     setLoginError={setLoginError}
                     isFormLoading={isFormLoading}
@@ -191,7 +188,7 @@ function App() {
                   <Navigate to="/" replace />
                 ) : (
                   <Register
-                    handleRegister={handleRegister}
+                    handleRegister={registration}
                     registerError={registerError}
                     setRegisterError={setRegisterError}
                     isFormLoading={isFormLoading}

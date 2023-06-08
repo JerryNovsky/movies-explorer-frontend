@@ -7,7 +7,7 @@ function Login({ handleLogin }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    handleLogin({ email: values.email, password: values.password });
+    handleLogin(values.email, values.password);
   }
 
   return (

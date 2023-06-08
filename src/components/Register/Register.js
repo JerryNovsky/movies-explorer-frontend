@@ -5,10 +5,10 @@ import AuthForm from "../AuthForm/AuthForm";
 function Register({ handleRegister }) {
   const { values, errors, handleChange, isFormValid } = useForm();
 
-  const handleSubmit = (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
     handleRegister(values.name, values.email, values.password);
-  };
+  }
 
   return (
     <section className="login">

@@ -3,7 +3,7 @@ import { useContext, useEffect } from "react";
 import useForm from "../../utils/useForm";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function Profile({ logout, handleUpdateProfile, loggedIn }) {
+function Profile({ logout, handleUpdateProfile, loggedIn, isFormLoading }) {
   const currentUser = useContext(CurrentUserContext);
 
   const { values, handleChange, errors, resetForm, isFormValid } = useForm();

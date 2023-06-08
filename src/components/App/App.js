@@ -63,7 +63,7 @@ function App() {
     localStorage.clear();
   }
 
-  //обновлении информации о себе
+  //обновление информации о себе
   function updateUser({ name, email }) {
     setIsFormLoading(true);
     MainApi.updateUser({ name, email })
@@ -74,7 +74,7 @@ function App() {
   }
 
   //получение списка избранных фильмов
-  const getSavedMovies = () => {
+  function getSavedMovies() {
     MainApi.getSavedMovies()
       .then((res) => {
         setSavedMovies(res);
@@ -82,19 +82,19 @@ function App() {
       .catch(() => {
         setIsMoviesLoadingError(true);
       });
-  };
+  }
 
   //добавление фильма в избранное
-  const addToSavedMovies = (data) => {
+  function addToSavedMovies(data) {
     MainApi.saveNewMovie(data)
       .then((movie) => {
         setSavedMovies([movie, ...savedMovies]);
       })
       .catch((err) => console.log(err));
-  };
+  }
 
   //удаление фильмов из избранного
-  const removeFromSavedMovies = (id) => {
+  function removeFromSavedMovies(id) {
     MainApi.deleteMovie(id)
       .then((res) => {
         setSavedMovies((prevVal) => {
@@ -102,7 +102,7 @@ function App() {
         });
       })
       .catch((err) => console.log(err));
-  };
+  }
 
   //получение сохранненых конкретным пользователем фильмов
   useEffect(() => {

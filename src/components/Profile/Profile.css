@@ -63,6 +63,14 @@
     font-size: 13px;
     line-height: 16px;
     color: #000000;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+}
+
+.profile__button_disabled {
+    color: #a0a0a0;
+    cursor: default;
 }
 
 .profile__button_type_logout {

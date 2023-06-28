@@ -5,6 +5,16 @@ import Footer from "../Footer/Footer";
 import Preloader from "../Preloader/Preloader";
 import { useState, useEffect } from "react";
 import * as MoviesApi from "../../utils/MoviesApi";
+import {
+  SMALL_SCREEN_SIZE,
+  LARGE_SCREEN_SIZE,
+  MIN_CARDS_QUANTITY,
+  MEDIUM_CARDS_QUANTITY,
+  MAX_CARDS_QUANTITY,
+  MIN_CARDS_ADDED,
+  MAX_CARDS_ADDED,
+  SHORT_MOVIES_DURATION,
+} from "../../utils/constants";
 
 function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
   const [allMovies, setAllMovies] = useState([]);
@@ -26,7 +36,7 @@ function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
 
   //сортировка фильмов по длительности
   function filterDuration(array) {
-    return array.filter((movie) => movie.duration <= 40);
+    return array.filter((movie) => movie.duration <= SHORT_MOVIES_DURATION);
   }
 
   //обработчик поискового запроса
@@ -70,7 +80,8 @@ function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
 
   //управление кнопкой "ещё" для загрузки фильмов
   function addMoviesList() {
-    let addition = screenSize > 1024 ? 6 : 4;
+    let addition =
+      screenSize > LARGE_SCREEN_SIZE ? MAX_CARDS_ADDED : MIN_CARDS_ADDED;
     setSelectedMovies((prevVal) => {
       return prevVal.concat(
         filteredMovies.slice(prevVal.length, prevVal.length + addition)
@@ -104,12 +115,12 @@ function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
 
   useEffect(() => {
     let limit;
-    if (screenSize > 1024) {
-      limit = 12;
-    } else if (screenSize > 480) {
-      limit = 8;
+    if (screenSize > LARGE_SCREEN_SIZE) {
+      limit = MAX_CARDS_QUANTITY;
+    } else if (screenSize > SMALL_SCREEN_SIZE) {
+      limit = MEDIUM_CARDS_QUANTITY;
     } else {
-      limit = 5;
+      limit = MIN_CARDS_QUANTITY;
     }
     if (filteredMovies.length > limit) {
       setSelectedMovies(filteredMovies.slice(0, limit));
@@ -139,7 +150,7 @@ function Movies({ loggedIn, savedMovies, handleSaveMovie, handleDeleteMovie }) {
       <main className="movies">
         <SearchForm
           name={"movies"}
-          onSearch={handleSearch}
+          handleSearch={handleSearch}
           isChecked={isFilterActive}
           onCheckbox={handleCheckbox}
         />

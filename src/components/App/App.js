@@ -13,6 +13,7 @@ import * as MainApi from "../../utils/MainApi";
 import * as Auth from "../../utils/Auth";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 
 function App() {
   const navigate = useNavigate();
@@ -24,13 +25,16 @@ function App() {
   const [isMoviesLoadingError, setIsMoviesLoadingError] = useState(false);
   const [savedMovies, setSavedMovies] = useState([]);
   const [isFormLoading, setIsFormLoading] = useState(false);
+  const [isInfoTooltip, setIsInfoTooltip] = useState({
+    isOpen: false,
+    isDone: true,
+  });
 
   //функция авторизации на сайте
   function authorization(email, password) {
     setIsFormLoading(true);
     Auth.login({ email, password })
       .then((res) => {
-        localStorage.getItem("isAuth");
         localStorage.setItem("token", res.token);
         setCurrentUser(res);
         setLoggedIn(true);
@@ -69,19 +73,15 @@ function App() {
     MainApi.updateUser({ name, email })
       .then((user) => {
         setCurrentUser(user);
+        setIsInfoTooltip({
+          isOpen: true,
+          isDone: true,
+        });
+      })
+      .catch((err) => {
+        console.log(err.message);
       })
       .finally(() => setIsFormLoading(false));
-  }
-
-  //получение списка избранных фильмов
-  function getSavedMovies() {
-    MainApi.getSavedMovies()
-      .then((res) => {
-        setSavedMovies(res);
-      })
-      .catch(() => {
-        setIsMoviesLoadingError(true);
-      });
   }
 
   //добавление фильма в избранное
@@ -90,7 +90,7 @@ function App() {
       .then((movie) => {
         setSavedMovies([movie, ...savedMovies]);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err.message));
   }
 
   //удаление фильмов из избранного
@@ -101,13 +101,23 @@ function App() {
           return prevVal.filter((item) => item._id !== res._id);
         });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err.message));
   }
 
-  //получение сохранненых конкретным пользователем фильмов
+  function closePopup() {
+    setIsInfoTooltip({ ...isInfoTooltip, isOpen: false });
+  }
+
+  //получение данных пользователя
   useEffect(() => {
     if (loggedIn) {
-      getSavedMovies();
+      MainApi.getCurrentUser()
+        .then((user) => {
+          setCurrentUser(user);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
     }
   }, [loggedIn]);
 
@@ -119,11 +129,29 @@ function App() {
         localStorage.setItem("isAuth", true);
         setCurrentUser(user);
       })
-      .catch(() => {
+      .catch((err) => {
         setLoggedIn(false);
         localStorage.clear();
+        console.log(err.message);
       });
   }, []);
+
+  //получение списка избранных фильмов
+  useEffect(() => {
+    if (loggedIn) {
+      MainApi.getSavedMovies()
+        .then((res) => {
+          const userMovies = res.filter(
+            (movie) => movie.owner._id === currentUser._id
+          );
+          setSavedMovies(userMovies);
+        })
+        .catch((err) => {
+          setIsMoviesLoadingError(true);
+          console.log(err.message);
+        });
+    }
+  }, [currentUser, loggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -198,6 +226,11 @@ function App() {
             />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
+          <InfoTooltip
+            isOpen={isInfoTooltip.isOpen}
+            onClose={closePopup}
+            isDone={isInfoTooltip.isDone}
+          />
         </div>
       </div>
     </CurrentUserContext.Provider>

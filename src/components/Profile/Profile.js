@@ -3,7 +3,7 @@ import { useContext, useEffect } from "react";
 import useForm from "../../utils/useForm";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function Profile({ logout, handleUpdateProfile, loggedIn, isFormLoading }) {
+function Profile({ logout, handleUpdateProfile, loggedIn }) {
   const currentUser = useContext(CurrentUserContext);
 
   const { values, handleChange, errors, resetForm, isFormValid } = useForm();
@@ -60,7 +60,7 @@ function Profile({ logout, handleUpdateProfile, loggedIn, isFormLoading }) {
           </div>
           <span className="login__span-error">{errors.email}</span>
           <button
-            className={`button profile__button ${
+            className={`profile__button ${
               isSubmitDisabled && "profile__button_disabled"
             }`}
             type="submit"

@@ -46,7 +46,7 @@ function SavedMovies({ savedMovies, loggedIn, handleDeleteMovie, isError }) {
           name={"saved-movies"}
           handleSearch={handleSearch}
           isChecked={isFilterActive}
-          handleCheckBox={handleCheckbox}
+          onCheckbox={handleCheckbox}
         />
         {isError && (
           <p className="movies__error-message">

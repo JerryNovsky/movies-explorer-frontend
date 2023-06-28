@@ -1,25 +1,21 @@
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-function SearchForm({ name, onSearch, isChecked, onCheckbox }) {
+function SearchForm({ name, handleSearch, isChecked, onCheckbox }) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchError, setSearchError] = useState("");
+
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
+    setSearchError("");
   };
 
   function handleSubmit(e) {
     e.preventDefault();
-    onSearch(searchQuery);
+    searchQuery
+      ? handleSearch(searchQuery)
+      : setSearchError("Строка поиска пуста");
   }
-
-  useEffect(() => {
-    if (name === "movies") {
-      const searchValue = localStorage.getItem("searchValue");
-      if (searchValue) {
-        setSearchQuery(searchValue);
-      }
-    }
-  }, [name]);
 
   return (
     <section className="searchform__form">
@@ -46,6 +42,13 @@ function SearchForm({ name, onSearch, isChecked, onCheckbox }) {
           ></button>
           <FilterCheckbox isChecked={isChecked} handleCheckbox={onCheckbox} />
         </div>
+        <span
+          className={`searchform__error-span ${
+            searchError && "searchform__error-span_active"
+          }`}
+        >
+          {searchError}
+        </span>
       </form>
     </section>
   );

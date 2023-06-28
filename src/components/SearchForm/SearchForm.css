@@ -32,6 +32,10 @@
   outline: 1px solid #2BE080;
 }
 
+searchform__input_error {
+  outline: 1px solid #FF3055;
+}
+
 .searchform__button { 
   position: absolute;
   right: 256px;
@@ -64,6 +68,20 @@
 
 .searchform__search-icon:hover {
   opacity: .65;
+}
+
+.searchform__error-span {
+  display: flex;
+  visibility: hidden;
+  padding-top: 10px;
+  color: #FF3055;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.searchform__error-span_active {
+  visibility: visible;
 }
 
 .searchform__border {

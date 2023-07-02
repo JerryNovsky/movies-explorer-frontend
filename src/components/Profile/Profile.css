@@ -25,6 +25,17 @@
     line-height: 13px;
 }
 
+.profile__input {
+    position: relative;
+    border: none;
+    width: 100%;
+    outline: none;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 1.18;
+    text-align: right;
+  }
+
 .profile__text-container:first-of-type {
     padding-top: 0;
 }
@@ -52,6 +63,14 @@
     font-size: 13px;
     line-height: 16px;
     color: #000000;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+}
+
+.profile__button_disabled {
+    color: #a0a0a0;
+    cursor: default;
 }
 
 .profile__button_type_logout {

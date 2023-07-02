@@ -1,20 +1,30 @@
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList({ page }) {
+function MoviesCardList({
+  movies,
+  savedMovies,
+  isSavedMoviesPage,
+  handleSaveMovie,
+  handleDeleteMovie,
+}) {
+  const moviesCard = movies.map((item) => {
+    return (
+      <li className="moviescard" key={isSavedMoviesPage ? item._id : item.id}>
+        <MoviesCard
+          movie={item}
+          isSavedMoviesPage={isSavedMoviesPage}
+          handleDeleteMovie={handleDeleteMovie}
+          handleSaveMovie={handleSaveMovie}
+          savedMovies={savedMovies}
+        />
+      </li>
+    );
+  });
+
   return (
-    <>
-      <section className="section moviescardlist">
-        <ul className="moviescardlist__container">
-          <MoviesCard page={page} />
-          <MoviesCard page={page} />
-          <MoviesCard page={page} />
-          <MoviesCard page={page} />
-          <MoviesCard page={page} />
-          <MoviesCard page={page} />
-        </ul>
-        <button className="moviescardlist__more-button">Ещё</button>
-      </section>
-    </>
+    <section className="section moviescardlist">
+      <ul className="moviescardlist__container">{moviesCard}</ul>
+    </section>
   );
 }
 

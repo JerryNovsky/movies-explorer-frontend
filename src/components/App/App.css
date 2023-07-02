@@ -30,6 +30,7 @@ html {
 .link {
     text-decoration: none;
     transition: opacity .6s;
+    z-index: 1;
 }
 
 .link:hover {

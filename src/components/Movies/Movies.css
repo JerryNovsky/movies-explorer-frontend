@@ -1,5 +1,15 @@
 .movies {
     padding: 0 70px 80px 70px;
+    display: flex;
+    flex-direction: column;
+}
+
+.movies__error-message {
+    text-align: center;
+    margin: 20px 0;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 20px;
 }
 
 @media screen and (max-width: 1024px) {
@@ -12,4 +22,9 @@
     .movies {
         padding: 0 10px 0 10px;
     }
+
+    .movies__error-message {
+        font-size: 14px;
+    }
+    
 }
